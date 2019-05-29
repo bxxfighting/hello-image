@@ -103,21 +103,22 @@ def preprocessor_image(imagepath):
     pil_img = Image.open(imagepath)
     # 图片随机旋转
     pil_img = pil_image_rotate(pil_img)
-    pil_img.save('旋转.png')
+    pil_img.save('{}/旋转.png'.format(path))
     # 图片补全成正方形并填充白色背景
     pil_img = pil_image_repair_square_and_white_bg(pil_img)
-    pil_img.save('白色补全.png')
+    pil_img.save('{}/白色补全.png'.format(path))
     # 图片随机平移
     pil_img = pil_image_translation(pil_img)
-    pil_img.save('平移.png')
+    pil_img.save('{}/平移.png'.format(path))
     # 图片调整到128 * 128
     pil_img = pil_image_resize(pil_img, 128)
-    pil_img.save('128.png')
+    pil_img.save('{}/128.png'.format(path))
     # PIL图片转cv2图片
     cv2_img = pil_image_2_cv2_image(pil_img)
-    cv2.imwrite('cv2.jpg', cv2_img)
+    cv2.imwrite('{}/cv2.jpg'.format(path), cv2_img)
     # 之后如果有其它处理就可以进行其它处理了
     # 我们是将cv2_img写到了h5文件中(h5py)
 
 
-preprocessor_image('test.png')
+if __name__ == '__main__':
+    preprocessor_image('data/test.png')
